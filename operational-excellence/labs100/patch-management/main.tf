@@ -64,14 +64,20 @@ resource "aws_ssm_patch_baseline" "production" {
   }
 }
 
+# PATCH GROUP
+resource "aws_ssm_patch_group" "patchgroup" {
+  baseline_id = aws_ssm_patch_baseline.production.id
+  patch_group = "patch-group-name"
+}
+
 # Scan Your Instances with AWS-RunPatchBaseline via Run Command
 
 resource "aws_ssm_document" "test-document" {
   name = "test-document"
   document_type = "Command"
 
-  content = <<DOC
-{
+  content = jsonencode({
+
 "schemaVersion": "1.2",
     "description": "Check ip configuration of a Linux instance.",
     "parameters": {
@@ -87,8 +93,7 @@ resource "aws_ssm_document" "test-document" {
         ]
       }
     }
-  }
-  }
-  DOC
+  
+  })
 }
 

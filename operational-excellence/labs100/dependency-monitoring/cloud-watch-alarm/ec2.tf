@@ -6,3 +6,4 @@ resource "aws_instance" "linux" {
     Name = "Demo Server"
   }
 }
+

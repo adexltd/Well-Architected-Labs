@@ -1,3 +1,14 @@
+resource "aws_db_instance" "example" {
+  allocated_storage = 20
+  engine = "mysql"
+  engine_version = "8.0"
+  instance_class = "db.t2.micro"
+  name = "example"
+  username = "example"
+  password = "example123"
+  parameter_group_name = "default.mysql8.0"
+}
+
 # availability zones
 data "aws_availability_zones" "available_zones" {
   state = "available"

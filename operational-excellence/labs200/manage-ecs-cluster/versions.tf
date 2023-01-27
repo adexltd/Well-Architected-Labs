@@ -1,0 +1,23 @@
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
+provider "aws" {
+  region                   = "us-west-1"
+  shared_credentials_files = ["~/.aws/credentials"]
+  profile                  = "admin1"
+
+  default_tags {
+    tags = {
+      Name = "architect-demo"
+    }
+  }
+
+
+}

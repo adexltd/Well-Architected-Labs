@@ -1,16 +1,16 @@
-resource "aws_cloudwatch_metric_alarm" "WA-Lab-DataReadFunction" {
-  alarm_name                = "WA-Lab-DataReadFunction"
+resource "aws_cloudwatch_metric_alarm" "NetworkTrafficTest" {
+  alarm_name                = "NetworkTrafficTest"
   comparison_operator       = "LessThanOrEqualToThreshold"
   evaluation_periods        = "2"
-  metric_name               = "CPUUtilization"
+  metric_name               = "NetworkIn"
   namespace                 = "AWS/EC2"
   period                    = "120"
   statistic                 = "Average"
   threshold                 = "10"
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_description         = "This metric monitors Incomming Network Traffic"
   insufficient_data_actions = []
   dimensions = {
-    InstanceId = aws_instance.linux.id
+    InstanceId = aws_instance.ec2.id
   }
-  alarm_actions = ["arn:aws:automate:us-west-1:ec2:stop"]
+  alarm_actions = [aws_sns_topic.AdminAlert.arn]
 }
